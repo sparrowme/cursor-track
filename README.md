@@ -15,9 +15,9 @@ Use your system keyboard shortcut feature to activate script on demand.  I used 
 
 Tested only on xfce4 Ubuntu 18.04
 
-
+** Note: In multi-head environments, this will only track your mouse on the screen the pointer was on when you activate the shortcut keys.
 
 ### TODO:
   * get size of image instead of hardcoded 100x100
   * optionally draw concentric circles with qt5 
-  * 
+  * fix multi-head display
