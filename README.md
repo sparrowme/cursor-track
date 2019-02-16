@@ -11,6 +11,8 @@ cursor-track is a utility that is intended to allow you to press a keyboard shor
 
 Make cursor-track.py executable.  Change #!/usr/bin/python3 if necessary.  You can create your own animated gif with gimp.  Just make sure you replace the 100x100 dimensions in the code to match the size of the image you create.
 
+Use your system keyboard shortcut feature to activate script on demand.  I used Ctrl-Shift-F.
+
 Tested only on xfce4 Ubuntu 18.04
 
 
