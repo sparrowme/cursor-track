@@ -17,49 +17,36 @@ class CustomWindow(QMainWindow):
 
         painter.setOpacity(0.0)
         painter.setBrush(Qt.white)
-        painter.setPen(QPen(Qt.white))   
+        painter.setPen(QPen(Qt.white))
         painter.drawRect(self.rect())
     def mousePressEvent(self, event):
         if (event.button() == Qt.LeftButton):
-            print('got click')
-            #self.drag_position = event.globalPos() - self.pos();
+            #print('got click')
             self.app.quit()
         event.accept();
 
     def mouseMoveEvent(self, e):
         x = e.x()
         y = e.y()
-        text = "Window => x: {0},  y: {1}".format(x, y)
-        print(text)
-        self.movie.setGeometry(e.x()-50,e.y()-50,100,100)
- #       self.movie.start()
+        #text = "Window => x: {0},  y: {1}".format(x, y)
+        #print(text)
+        self.movie.setGeometry(e.x()-(self.movie.width/2),e.y()-(self.movie.height/2),self.movie.width,self.movie.height)
 
 class CustomMovie(QLabel):
-    def __init__(self,window,file):
+    def __init__(self,window,file,width,height):
         super().__init__(window)
+        self.width=width
+        self.height=height
         window.movie=self
         movie=QMovie(file)
         self.setMovie(movie)
         pos=QCursor.pos()
-        self.setGeometry(pos.x()-50,pos.y()-50,100,100)
+        self.setGeometry(pos.x()-(width/2),pos.y()-(height/2),width,height)
         movie.start()
         self.setMouseTracking(True)
     def mouseMoveEvent(self, event):
-        #x = e.x()
-        #y = e.y()
-        #text = "Movie => x: {0},  y: {1}".format(x, y)
-        #print(text)
-        #self.setGeometry(e.x()-50,e.y()-50,100,100)
+        #call super() if mouse is over the movie to get global coordinates
         super(QLabel, self).mouseMoveEvent(event)
-  #      self.start()
-#gif
-#moviee = QLabel(window)
-#window.movie=moviee
-#movie = QMovie("circle.gif")
-
-#moviee.setMovie(movie)
-#moviee.setGeometry(5,3,100,100)
-#movie.start()
 
 app = QApplication(sys.argv)
 
@@ -69,22 +56,8 @@ window = CustomWindow(app)
 window.setWindowFlags(Qt.FramelessWindowHint)
 window.setAttribute(Qt.WA_NoSystemBackground, True)
 window.setAttribute(Qt.WA_TranslucentBackground, True)
-#window.clicked.connect(app.quit)
 
-m=CustomMovie(window,"circle.gif")
-
-# Create the button
-#pushButton = QPushButton(window)
-#pushButton.setGeometry(QRect(240, 190, 90, 31))
-#pushButton.setText("Finished")
-#pushButton.clicked.connect(app.quit)
-
-
-# Center the button
-#qr = pushButton.frameGeometry()
-#cp = QDesktopWidget().availableGeometry().center()
-#qr.moveCenter(cp)
-#pushButton.move(qr.topLeft())
+m=CustomMovie(window,"circle.gif",100,100)
 
 # Run the application
 window.showFullScreen()
